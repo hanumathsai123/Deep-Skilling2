@@ -1,0 +1,11 @@
+WITH RECURSIVE Calendar AS (
+    SELECT DATE('2025-01-01') AS CalendarDate
+
+    UNION ALL
+
+    SELECT DATE_ADD(CalendarDate, INTERVAL 1 DAY)
+    FROM Calendar
+    WHERE CalendarDate < '2025-01-31'
+)
+
+SELECT * FROM Calendar;

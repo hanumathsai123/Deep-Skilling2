@@ -1,0 +1,50 @@
+DROP TABLE IF EXISTS Products;
+
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(100),
+    Category VARCHAR(50),
+    Price DECIMAL(10,2)
+);
+INSERT INTO Products VALUES
+(101,'Laptop','Electronics',60000),
+(102,'Phone','Electronics',30000),
+(103,'Chair','Furniture',5000),
+(104,'Table','Furniture',8000);
+WITH RECURSIVE Calendar AS
+(
+    SELECT DATE('2025-01-01') AS CalendarDate
+
+    UNION ALL
+
+    SELECT DATE_ADD(CalendarDate, INTERVAL 1 DAY)
+    FROM Calendar
+    WHERE CalendarDate < '2025-01-31'
+)
+
+SELECT * FROM Calendar;
+DROP TABLE IF EXISTS StagingProducts;
+
+CREATE TABLE StagingProducts (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(100),
+    Category VARCHAR(50),
+    Price DECIMAL(10,2)
+);
+INSERT INTO StagingProducts VALUES
+(101,'Laptop','Electronics',65000),
+(102,'Phone','Electronics',32000),
+(105,'Mouse','Electronics',800);
+INSERT INTO Products (ProductID, ProductName, Category, Price)
+SELECT
+    ProductID,
+    ProductName,
+    Category,
+    Price
+FROM StagingProducts
+AS new
+ON DUPLICATE KEY UPDATE
+    ProductName = new.ProductName,
+    Category = new.Category,
+    Price = new.Price;
+    

@@ -1,0 +1,16 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[user]
+	name = tanmayitammineedi
+	email = tanmayitammineedi@users.noreply.github.com
+[remote "origin"]
+	url = https://github.com/tanmayitammineedi/Deep-Skilling.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "module-1"]
+	remote = origin
+	merge = refs/heads/module-1
